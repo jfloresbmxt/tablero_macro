@@ -98,7 +98,72 @@ def graph1(df):
 
     return fig
 
+
 def graph2(df):
+    COLOR_BAR = "rgb(124, 143, 156)"
+    COLOR_FONT= "#000000"
+    SIZE_TEXT = 10
+    FONT_FAMILY = "Noto Sans"
+
+    fig = go.Figure()
+
+    fig.add_trace(
+        go.Bar(
+            x = df["2025"],
+            y = df["entidad"],
+            orientation = "h",
+            marker_color = COLOR_BAR,
+            text = df["2025"].apply(lambda x: f"${x:,.0f}"),
+            textposition = "inside",
+            textfont = dict(
+                color = COLOR_FONT, 
+                size=SIZE_TEXT
+                ),
+            insidetextanchor = "start",
+            customdata = df[["entidad", "2025", "participacion", "tmac"]],
+            hovertemplate = (
+                "<b>%{customdata[0]}</b> <br>" +
+                "<b>Asegurados:</b> %{customdata[1]:,.0f} mmdp<br>" +
+                "<b>Participación:</b> %{customdata[2]:.2f}%<br>" +
+                "<b>TMAC 2018-2023:</b> %{customdata[3]:.2f}%<extra></extra>"
+                )
+        )
+    )
+
+    fig.update_layout(
+        height = 800,
+        bargap = 0.1,
+        xaxis = dict(
+            title = dict(
+                text = "", 
+                font = dict(
+                    color=COLOR_FONT
+                    )),
+            tickfont = dict(
+                color=COLOR_FONT
+                ),
+            showticklabels=False,
+            showgrid = False,
+        ),
+        yaxis = dict(
+            tickfont = dict(color=COLOR_FONT),
+            showgrid = False,
+            fixedrange = False,
+            automargin = True,
+            autorange = 'reversed',
+            ),
+        showlegend = False,
+        template = "plotly_white",
+        margin = dict(t=10, l=0, r=0, b=0),
+        font = dict(family = FONT_FAMILY, 
+                  color = COLOR_FONT,
+                  size = SIZE_TEXT
+                  )
+    )
+    return fig
+
+
+def graph3(df):
     COLOR_LINE_2 = "rgb(124, 143, 156)"
     # COLOR_LINE_2 = "rgb(114, 47, 55)"
     COLOR_LINE_1 = "rgb(71, 85, 94)"

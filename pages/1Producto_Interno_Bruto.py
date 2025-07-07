@@ -1,7 +1,7 @@
 import streamlit as st
 from assets.components.header import header, subheader, title
 from assets.components.title_graphs import title_graph
-from funciones.data_loader import load_data
+from funciones.data_loader import load_pib_data
 from funciones.pib.grafica1 import graph1
 from funciones.pib.grafica2 import graph2
 from funciones.pib.grafica2_1 import graph2_1
@@ -13,7 +13,7 @@ st.set_page_config(
 )
 
 def pib_page():
-    df, df1, df2, df3, df4, df5 = load_data()
+    df, df1, df2 = load_pib_data()
 
     header("Producto Interno Bruto")
     subheader("Análisis del Producto Interno Bruto (PIB): composición por sectores y entidades federativas")
