@@ -113,7 +113,7 @@ def graph2(df):
             y = df["entidad"],
             orientation = "h",
             marker_color = COLOR_BAR,
-            text = df["2025"].apply(lambda x: f"${x:,.0f}"),
+            text = df["2025"].apply(lambda x: f"{x:,.0f}"),
             textposition = "inside",
             textfont = dict(
                 color = COLOR_FONT, 
@@ -123,7 +123,7 @@ def graph2(df):
             customdata = df[["entidad", "2025", "participacion", "tmac"]],
             hovertemplate = (
                 "<b>%{customdata[0]}</b> <br>" +
-                "<b>Asegurados:</b> %{customdata[1]:,.0f} mmdp<br>" +
+                "<b>Asegurados:</b> %{customdata[1]:,.0f}<br>" +
                 "<b>Participación:</b> %{customdata[2]:.2f}%<br>" +
                 "<b>TMAC 2018-2023:</b> %{customdata[3]:.2f}%<extra></extra>"
                 )
@@ -158,7 +158,13 @@ def graph2(df):
         font = dict(family = FONT_FAMILY, 
                   color = COLOR_FONT,
                   size = SIZE_TEXT
-                  )
+                  ),
+        hoverlabel=dict(
+            font_size=SIZE_TEXT,
+            font_family=FONT_FAMILY,
+            font_color=COLOR_FONT,
+            bordercolor="gray"
+        )
     )
     return fig
 
