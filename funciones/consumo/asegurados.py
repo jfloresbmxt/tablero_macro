@@ -14,7 +14,7 @@ def graph1(df):
     fig.add_trace(go.Scatter(
         x = df['date_df'],
         y = df['ta'],
-        name = 'ta',
+        name = 'Asegurados',
         yaxis = 'y1',
         line = dict(
             color = COLOR_LINE_1 
@@ -30,7 +30,7 @@ def graph1(df):
     fig.add_trace(go.Scatter(
         x = df['date_df'],
         y = df['variacion'],
-        name = 'variacion',
+        name = 'Variación anual (%)',
         yaxis = 'y2',
         line = dict(
             color=COLOR_LINE_2, 
@@ -86,7 +86,7 @@ def graph1(df):
             showgrid=False
         ),
         margin=dict(t=10, l=10, r=10, b=10),
-        showlegend = False, 
+        showlegend = True, 
         template="plotly_white",
         hovermode="x unified",
         hoverlabel=dict(
@@ -94,7 +94,15 @@ def graph1(df):
             font_family=FONT_FAMILY,
             font_color=COLOR_FONT,
             bordercolor="gray"
-    ))
+    ),
+    legend = dict(
+            orientation = "h",
+            yanchor = "bottom",
+            y = 1.12,  # Ajusta para posicionar más arriba si hace falta
+            xanchor = "center",
+            x = 0.5
+        ),
+    )
 
     return fig
 

@@ -11,6 +11,7 @@ def graph_consumo(df):
     last_date = df['date_dt_pct'].iloc[-1]
     last_total = df['TOTAL'].iloc[-1]
     last_total_pct = df['TOTAL_pct'].iloc[-1]
+    # df = df.rename(columns = {"TOTAL":"Consumo", "TOTAL_pct":"Variación"})
     
     # Crear figura
     fig = go.Figure()
@@ -19,7 +20,7 @@ def graph_consumo(df):
     fig.add_trace(go.Scatter(
         x = df['date_dt_pct'],
         y = df['TOTAL'],
-        name = 'TOTAL',
+        name = 'Indice de consumo',
         yaxis = 'y1',
         line = dict(color=COLOR_LINE_1),
         text = df["TOTAL"].apply(lambda x: f"{x:.2f}"),
@@ -31,7 +32,7 @@ def graph_consumo(df):
     fig.add_trace(go.Scatter(
         x = df['date_dt_pct'],
         y = df['TOTAL_pct'],
-        name = 'TOTAL_pct',
+        name = 'Variación anual (%)',
         yaxis = 'y2',
         line = dict(color=COLOR_LINE_2, dash='dot'),
         text = df["TOTAL_pct"].apply(lambda x: f"{x:.2f}"),
@@ -120,7 +121,7 @@ def graph_consumo(df):
             showgrid = False
         ),
         margin = dict(t=10, l=10, r=10, b=10),
-        showlegend = False,
+        showlegend = True,
         template = "plotly_white",
         hovermode = "x unified",
         hoverlabel = dict(
@@ -128,7 +129,14 @@ def graph_consumo(df):
             font_family = FONT_FAMILY,
             font_color = COLOR_FONT,
             bordercolor = "gray"
-        )
+        ),
+        legend = dict(
+            orientation = "h",
+            yanchor = "bottom",
+            y = 1.12,  # Ajusta para posicionar más arriba si hace falta
+            xanchor = "center",
+            x = 0.5
+        ),
     )
 
     return fig
