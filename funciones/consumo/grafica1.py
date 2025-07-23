@@ -1,24 +1,23 @@
 import plotly.graph_objects as go
 
 def graph_consumo(df):
-    COLOR_LINE_1 = "rgb(71, 85, 94)"       # Línea TOTAL
-    COLOR_LINE_2 = "rgb(124, 143, 156)"    # Línea TOTAL_pct
-    COLOR_FONT = "#000000"
+    COLOR_LINE_2 = "rgb(124, 143, 156)"
+    COLOR_LINE_1 = "rgb(71, 85, 94)"
+    COLOR_FONT= "#000000"
     SIZE_TEXT = 10
     FONT_FAMILY = "Noto Sans"
-    
+
     # Últimos valores
-    last_date = df['date_dt_pct'].iloc[-1]
+    last_date = df['date'].iloc[-1]
     last_total = df['TOTAL'].iloc[-1]
     last_total_pct = df['TOTAL_pct'].iloc[-1]
-    # df = df.rename(columns = {"TOTAL":"Consumo", "TOTAL_pct":"Variación"})
     
-    # Crear figura
+    # Crear la figura
     fig = go.Figure()
 
     # Serie 1: TOTAL (eje primario)
     fig.add_trace(go.Scatter(
-        x = df['date_dt_pct'],
+        x = df['date'],
         y = df['TOTAL'],
         name = 'Indice de consumo',
         yaxis = 'y1',
@@ -27,10 +26,10 @@ def graph_consumo(df):
         customdata = df[["TOTAL"]],
         hovertemplate = "<b>Índice:</b> %{customdata[0]:.2f}<extra></extra>"
     ))
-
+    
     # Serie 2: TOTAL_pct (eje secundario)
     fig.add_trace(go.Scatter(
-        x = df['date_dt_pct'],
+        x = df['date'],
         y = df['TOTAL_pct'],
         name = 'Variación anual (%)',
         yaxis = 'y2',
@@ -98,15 +97,14 @@ def graph_consumo(df):
             showgrid = False,
             title_text = "Fecha",
             type = "date",
-            range = ["2018-01", "2025-04"],
+            range = ["2018-01", "2025-06"],
             rangeslider = dict(visible=False),
             rangeselector = dict(
                 buttons = list([
                     dict(count=5, label="5 años", step="year", stepmode="backward"),
-                    dict(count=10, label="10 años", step="year", stepmode="todate"),
-                    dict(count=15, label="15 años", step="year", stepmode="todate"),
-                    dict(count=20, label="20 años", step="year", stepmode="todate"),
-                    dict(label = "Mostrar toda la serie", step = "all")
+                    dict(count=10, label="10 años", step="year", stepmode="backward"),
+                    dict(count=15, label="15 años", step="year", stepmode="backward"),
+                    dict(count=20, label="20 años", step="year", stepmode="backward"),
                 ])
             )
         ),
