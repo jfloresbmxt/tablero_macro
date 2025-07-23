@@ -24,7 +24,7 @@ def consumo_page():
 
     st.divider()
 
-    title_graph("Asegurados", 
+    title_graph("Asegurados totales del IMSS", 
             "(numero de asegurados | %)")
     st.plotly_chart(graph1(df1), use_container_width=True)
 

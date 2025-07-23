@@ -6,6 +6,13 @@ def graph1(df):
     COLOR_FONT= "#000000"
     SIZE_TEXT = 10
     FONT_FAMILY = "Noto Sans"
+
+    df["ta"] = df["ta"]/1000000
+
+    # Últimos valores
+    last_date = df['date_df'].iloc[-1]
+    last_total = df['ta'].iloc[-1]
+    last_total_pct = df['variacion'].iloc[-1]
     
     # Crear la figura
     fig = go.Figure()
@@ -14,7 +21,7 @@ def graph1(df):
     fig.add_trace(go.Scatter(
         x = df['date_df'],
         y = df['ta'],
-        name = 'Asegurados',
+        name = 'ta',
         yaxis = 'y1',
         line = dict(
             color = COLOR_LINE_1 
@@ -22,7 +29,7 @@ def graph1(df):
         text=df["ta"].apply(lambda x: f"{x:,.0f}"),
         customdata = df[["ta"]],
         hovertemplate = (
-                "<b>Asegurados:</b> %{customdata[0]:,.0f}<extra></extra>"
+                "<b>Asegurados:</b> %{customdata[0]:,.2f}M<extra></extra>"
                 )
     ))
 
@@ -30,7 +37,7 @@ def graph1(df):
     fig.add_trace(go.Scatter(
         x = df['date_df'],
         y = df['variacion'],
-        name = 'Variación anual (%)',
+        name = 'variacion',
         yaxis = 'y2',
         line = dict(
             color=COLOR_LINE_2, 
@@ -42,6 +49,50 @@ def graph1(df):
                 "<b>Variación:</b> %{customdata[0]:.2f}%<extra></extra>"
                 )
     ))
+
+    # Punto final para TOTAL
+    fig.add_trace(go.Scatter(
+        x = [last_date],
+        y = [last_total],
+        mode = "markers",
+        marker = dict(color=COLOR_LINE_1, size=8, symbol='circle'),
+        showlegend = False,
+        hoverinfo = 'skip'
+    ))
+
+    # Punto final para TOTAL_pct
+    fig.add_trace(go.Scatter(
+        x = [last_date],
+        y = [last_total_pct],
+        mode = "markers",
+        marker = dict(color=COLOR_LINE_2, size=8, symbol='diamond'),
+        yaxis = "y2",
+        showlegend = False,
+        hoverinfo = 'skip'
+    ))
+
+    # Anotación para TOTAL
+    fig.add_annotation(
+        x = last_date,
+        y = last_total,
+        text = f"{last_total:,.2f};",
+        yanchor = "bottom",
+        showarrow = False,
+        bordercolor = COLOR_LINE_1,
+        borderpad = 4,
+    )
+
+    # Anotación para TOTAL_pct
+    fig.add_annotation(
+        x = last_date,
+        y = last_total_pct,
+        text = f"{last_total_pct:.2f}%",
+        yanchor = "top",
+        yref = "y2",
+        showarrow = False,
+        bordercolor = COLOR_LINE_2,
+        borderpad = 4,
+    )
 
     fig.update_layout(
         height = 500,
@@ -64,7 +115,7 @@ def graph1(df):
             showgrid = False,
             title_text = "Fecha",
             type = "date",
-            range=["2018-01", "2025-04"],
+            range=["2018-01", "2025-09"],
             rangeslider = dict(visible=False),
             rangeselector = dict(
                 buttons = list([
@@ -86,7 +137,7 @@ def graph1(df):
             showgrid=False
         ),
         margin=dict(t=10, l=10, r=10, b=10),
-        showlegend = True, 
+        showlegend = False, 
         template="plotly_white",
         hovermode="x unified",
         hoverlabel=dict(
@@ -94,15 +145,7 @@ def graph1(df):
             font_family=FONT_FAMILY,
             font_color=COLOR_FONT,
             bordercolor="gray"
-    ),
-    legend = dict(
-            orientation = "h",
-            yanchor = "bottom",
-            y = 1.12,  # Ajusta para posicionar más arriba si hace falta
-            xanchor = "center",
-            x = 0.5
-        ),
-    )
+    ))
 
     return fig
 
@@ -133,13 +176,13 @@ def graph2(df):
                 "<b>%{customdata[0]}</b> <br>" +
                 "<b>Asegurados:</b> %{customdata[1]:,.0f}<br>" +
                 "<b>Participación:</b> %{customdata[2]:.2f}%<br>" +
-                "<b>TMAC 2018-2023:</b> %{customdata[3]:.2f}%<extra></extra>"
+                "<b>TMAC 2018-2025:</b> %{customdata[3]:.2f}%<extra></extra>"
                 )
         )
     )
 
     fig.update_layout(
-        height = 800,
+        height = 500,
         bargap = 0.1,
         xaxis = dict(
             title = dict(
@@ -166,13 +209,7 @@ def graph2(df):
         font = dict(family = FONT_FAMILY, 
                   color = COLOR_FONT,
                   size = SIZE_TEXT
-                  ),
-        hoverlabel=dict(
-            font_size=SIZE_TEXT,
-            font_family=FONT_FAMILY,
-            font_color=COLOR_FONT,
-            bordercolor="gray"
-        )
+                  )
     )
     return fig
 
@@ -204,7 +241,7 @@ def graph3(df):
         textfont_color=text_colors,
         textposition = 'inside',
         insidetextanchor="start",  # Opcional: mejora alineación a la izquierda
-        customdata=df[["entidad", "dic-2024", "may-2025", "dif", "dif_pct"]],
+        customdata=df[["entidad", "dic-2024", "jun-2025", "dif", "dif_pct"]],
         hovertemplate = (
             "<b>%{customdata[0]}</b><br>" +
             "<b>Asegurados dic-2024:</b> %{customdata[1]:,.0f}<br>" +
