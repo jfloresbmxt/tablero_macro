@@ -182,7 +182,7 @@ def graph2(df):
     )
 
     fig.update_layout(
-        height = 500,
+        height = 900,
         bargap = 0.1,
         xaxis = dict(
             title = dict(
@@ -205,11 +205,13 @@ def graph2(df):
             ),
         showlegend = False,
         template = "plotly_white",
-        margin = dict(t=10, l=0, r=0, b=0),
-        font = dict(family = FONT_FAMILY, 
-                  color = COLOR_FONT,
-                  size = SIZE_TEXT
-                  )
+        margin = dict(t=10, l=10, r=10, b=10),
+        hoverlabel = dict(
+            font_size = SIZE_TEXT,
+            font_family = FONT_FAMILY,
+            font_color = COLOR_FONT,
+            bordercolor = "gray"
+        )
     )
     return fig
 
@@ -245,7 +247,7 @@ def graph3(df):
         hovertemplate = (
             "<b>%{customdata[0]}</b><br>" +
             "<b>Asegurados dic-2024:</b> %{customdata[1]:,.0f}<br>" +
-            "<b>Asegurados may-2025:</b> %{customdata[2]:,.0f}<br>" +
+            "<b>Asegurados jun-2025:</b> %{customdata[2]:,.0f}<br>" +
             "<b>Diferencia:</b> %{customdata[3]:,.0f}<extra></extra><br>" +
             "<b>Diferencia porcentual:</b> %{customdata[4]:.2f}%"
             )

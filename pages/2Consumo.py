@@ -25,19 +25,19 @@ def consumo_page():
     st.divider()
 
     title_graph("Asegurados totales del IMSS", 
-            "(numero de asegurados | %)")
+            "(número de asegurados | %)")
     st.plotly_chart(graph1(df1), use_container_width=True)
 
     st.divider()
-
-    title_graph("Asegurados por entidad", 
-            "(numero de asegurados | %)")
-    
+  
     tab1, tab2 = st.tabs(["Barras", "Tops"])
     
     with tab1:
+        title_graph("Asegurados totales del IMSS por entidad", 
+            "(número de asegurados)")
         st.plotly_chart(graph2(df2), use_container_width=True)
     with tab2:
+        title_graph("Entidades con mayores cambios en el número de asegurados en lo que va del año")
         st.plotly_chart(graph3(df3), use_container_width=True)
     
     st.divider()
