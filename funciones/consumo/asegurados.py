@@ -211,7 +211,11 @@ def graph2(df):
             font_family = FONT_FAMILY,
             font_color = COLOR_FONT,
             bordercolor = "gray"
-        )
+        ),
+        font = dict(family = FONT_FAMILY, 
+                  color = COLOR_FONT,
+                  size = SIZE_TEXT
+                  )
     )
     return fig
 

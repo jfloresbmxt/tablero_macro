@@ -28,7 +28,7 @@ def remesas_line(df):
         text=df["remesas"].apply(lambda x: f"{x:.2f}"),
         customdata = df[["remesas"]],
         hovertemplate = (
-                "<b>Remesas:</b> %{customdata[0]:.2f} mdd<extra></extra>"
+                "<b>Remesas:</b> %{customdata[0]:,.0f} mdd<extra></extra>"
                 )
     ))
 
@@ -36,7 +36,7 @@ def remesas_line(df):
     fig.add_trace(go.Scatter(
         x = df['date'],
         y = df['variacion'],
-        name = 'Variación anual',
+        name = 'Variación anual (%)',
         yaxis = 'y2',
         line = dict(
             color=COLOR_LINE_2, 
@@ -127,6 +127,7 @@ def remesas_line(df):
         ),
         yaxis = dict(
             tickfont = dict(color=COLOR_FONT),
+            tickformat=",",
             showgrid=False
             ),
         yaxis2=dict(
@@ -158,10 +159,17 @@ def remesas_line(df):
 
 
 def remesas_map(df):
+    COLOR_LINE_2 = "rgb(124, 143, 156)"
+    COLOR_LINE_1 = "rgb(71, 85, 94)"
+    COLOR_FONT= "#000000"
+    SIZE_TEXT = 10
+    FONT_FAMILY = "Noto Sans"
     # Cargar GeoJSON de los estados de México
     url = "https://raw.githubusercontent.com/angelnmara/geojson/master/mexicoHigh.json"
     geojson = requests.get(url).json()
 
+    # Suponiendo que ya tienes el DataFrame `df` con columnas 'Entidad' y 'Remesas'
+    # df = pd.DataFrame(...)
 
     # Crear quintiles, etiquetas y colores
     df["quintil"] = pd.qcut(df["Remesas"], 5)
@@ -177,7 +185,7 @@ def remesas_map(df):
     df["color"] = df["quintil"].map(interval_color_map)
     df["label"] = df["quintil"].map(interval_label_map)
 
-    # Crear figura
+    # # Crear figura
     fig = go.Figure()
 
     # Agregar los estados coloreados
@@ -185,6 +193,13 @@ def remesas_map(df):
         estado = row["Entidad"]
         color = row["color"]
         remesa = row["Remesas"]
+        participacion = row["participacion"]
+
+        over_text = (
+        f"<b>{estado}</b><br>"
+        f"Remesas: {remesa:,.2f} mdd<br>"
+        f"Participación: {participacion:.2f}%<extra></extra>"
+    )
 
         for feature in geojson["features"]:
             if feature["properties"]["name"] == estado:
@@ -196,7 +211,9 @@ def remesas_map(df):
                     featureidkey="properties.name",
                     colorscale=[[0, color], [1, color]],
                     showscale=False,
-                    hovertemplate=f"<b>{estado}</b><br>Remesas: {remesa:,.2f} millones<extra></extra>"
+                    hovertemplate = over_text
+                        
+    
                 ))
                 break
 
@@ -231,15 +248,25 @@ def remesas_map(df):
         margin={"r": 0, "t": 0, "l": 0, "b": 0},
         height=700,
         showlegend=True,
+        hoverlabel=dict(
+            font_size=SIZE_TEXT,
+            font_family=FONT_FAMILY,
+            font_color=COLOR_FONT,
+            bordercolor="gray"),
         legend_title_text="Remesas (millones USD)",
         legend=dict(
             y=0.6,
-            x=0.7,
+            x=0.66,
             bordercolor="black",
             borderwidth=.1,
             font=dict(size=12)
-        )
+        ),
+        font = dict(family = FONT_FAMILY, 
+                  color = COLOR_FONT,
+                  size = SIZE_TEXT
+                  )
     )
+
 
     return fig
 
@@ -270,15 +297,15 @@ def remesas_bar(df):
             customdata = df[["Entidad", "Remesas", "participacion", "tmac"]],
             hovertemplate = (
                 "<b>%{customdata[0]}</b> <br>" +
-                "<b>Remesas:</b> %{customdata[1]:,.0f} millones de USD<br>" +
+                "<b>Remesas:</b> %{customdata[1]:,.0f} mdd<br>" +
                 "<b>Participación:</b> %{customdata[2]:.2f}%<br>" +
-                "<b>TMAC 2018-2023:</b> %{customdata[3]:.2f}%<extra></extra>"
+                "<b>TMAC 2018-2025:</b> %{customdata[3]:.2f}%<extra></extra>"
                 )
         )
     )
 
     fig.update_layout(
-        height = 700,
+        height = 900,
         bargap = 0.1,
         xaxis = dict(
             title = dict(
@@ -302,10 +329,14 @@ def remesas_bar(df):
         showlegend = False,
         template = "plotly_white",
         margin = dict(t=10, l=0, r=0, b=0),
+        hoverlabel=dict(
+            font_size=SIZE_TEXT,
+            font_family=FONT_FAMILY,
+            font_color=COLOR_FONT,
+            bordercolor="gray"),
         font = dict(family = FONT_FAMILY, 
                   color = COLOR_FONT,
                   size = SIZE_TEXT
                   )
     )
-
     return fig

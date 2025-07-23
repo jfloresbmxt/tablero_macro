@@ -43,14 +43,18 @@ def consumo_page():
     st.divider()
 
     title_graph("Evolución de las remesas", 
-            "(2018 = 100 | %)")
+            "(Millones de UDS | %)")
     
     st.plotly_chart(remesas_line(df4), use_container_width=True)
     tab1, tab2 = st.tabs(["Mapa", "Barras"])
     
     with tab1:
+        title_graph("Remesas recibidas por entidad federativa", 
+            "(Millones de UDS)")
         st.plotly_chart(remesas_map(df5), use_container_width=True)
     with tab2:
+        title_graph("Remesas recibidas por entidad federativa", 
+            "(Millones de UDS)")
         st.plotly_chart(remesas_bar(df5), use_container_width=True)
 
 if __name__ == "__main__":
