@@ -55,11 +55,14 @@ def graph3(df):
             ),
         showlegend = False,
         template = "plotly_white",
-        margin = dict(t=30, l=0, r=0, b=0),
-        font = dict(family = FONT_FAMILY, 
-                  color = COLOR_FONT,
-                  size = SIZE_TEXT
-                  )
+        margin=dict(t=10, l=0, r=0, b=0),
+        # hovermode="x unified",
+        hoverlabel=dict(
+            font_size=SIZE_TEXT,
+            font_family=FONT_FAMILY,
+            font_color=COLOR_FONT,
+            bordercolor="gray"
+    )
     )
 
     return fig
@@ -83,11 +86,26 @@ def graph3_1(df):
                 sizemin=4,
                 color=df["tmac"],
                 colorscale="blues",
+                colorbar = dict(
+                    title = dict(
+                        text = "TMAC (%)",
+                        font = dict(
+                            family = FONT_FAMILY,
+                            size = SIZE_TEXT,
+                            color = COLOR_FONT
+                        )
+                    )
+                ),
                 line=dict(width=1, color='DarkSlateGrey')
             ),
             text = df["entidad"],
-            hovertemplate="<b>%{text}</b><br>PIB: %{x:,.0f} mmdp<br>TMAC: %{y:.2f} "
-            "%<br>Participación: %{marker.size:.2f} %",      
+            customdata=df[["entidad", 2023, "participacion", "tmac"]],
+            hovertemplate = (
+            "<b>%{customdata[0]}</b> <br>" +
+            "<b>PIB:</b> %{customdata[1]:,.0f} mmdp<br>" +
+            "<b>Participación:</b> %{customdata[2]:.2f}%<br>" +
+            "<b>TMAC 2018-2023:</b> %{customdata[3]:.2f}%<extra></extra>"
+            )
     ))
 
     annotations = []
@@ -139,7 +157,7 @@ def graph3_1(df):
         ),
         ),
         height=500,
-        margin=dict(t=10, l=0, r=0, b=0),
+        margin=dict(t=10, l=10, r=10, b=10),
         showlegend=False,
         template = "plotly_white",
         annotations=annotations,

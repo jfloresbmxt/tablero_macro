@@ -39,14 +39,18 @@ def pib_page():
 
     st.divider()
 
-    title("PIB por entidad")
+    title("PIB por entidad federativa")
 
     tab1, tab2 = st.tabs(["Barras", "Burbujas"])
 
     with tab1:
+        title_graph("Participacion del PIB por entidad federativa", 
+                "(Millones de pesos)")
         st.plotly_chart(graph3(df2), use_container_width=True)
 
     with tab2:
+        title_graph("Participacion del PIB y TMAC por entidad federativa", 
+                "(Millones de pesos | %)")
         st.plotly_chart(graph3_1(df2), use_container_width=True)
 
 if __name__ == "__main__":

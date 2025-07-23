@@ -39,21 +39,6 @@ def graph2_1(df):
             "<b>TMAC 2018-2024:</b> %{customdata[3]:.2f}%<extra></extra>"
             )
     ))
-    fig.add_annotation(
-    text="Fuente: Elaboración propia con datos de INEGI",
-    xref="paper", yref="paper",
-    x=0, y=-0.07,  # esquina inferior izquierda del área del gráfico
-    xanchor="left",
-    yanchor="top",
-    showarrow=False,
-    font=dict(
-        family=FONT_FAMILY,
-        size=SIZE_TEXT - 1,
-        color=COLOR_FONT
-    ),
-    align="left",
-    bgcolor="rgba(255,255,255,0.8)"  # fondo semitransparente opcional
-)
 
     annotations = []
     for i, row in df.iterrows():
