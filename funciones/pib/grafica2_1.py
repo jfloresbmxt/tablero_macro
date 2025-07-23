@@ -18,12 +18,42 @@ def graph2_1(df):
                 sizemin=4,
                 color=df["tmac"],
                 colorscale="blues",
-                line=dict(width=1, color='DarkSlateGrey')
+                colorbar = dict(
+                    title = dict(
+                        text = "TMAC (%)",
+                        font = dict(
+                            family = FONT_FAMILY,
+                            size = SIZE_TEXT,
+                            color = COLOR_FONT
+                        )
+                    )
+                ),
+                line=dict(width=1, color='DarkSlateGrey'),
             ),
             text = df["sector"],
-            hovertemplate="<b>%{text}</b><br>PIB: %{x:,.0f} mmdp<br>TMAC: %{y:.2f} "
-            "%<br>Participación: %{marker.size:.2f} %",      
+            customdata=df[["sector","2024_", "participacion", "tmac"]],
+            hovertemplate = (
+            "<b>%{customdata[0]}</b> <br>" +
+            "<b>PIB:</b> %{customdata[1]:,.0f} mmdp<br>" +
+            "<b>Participación:</b> %{customdata[2]:.2f}%<br>" +
+            "<b>TMAC 2018-2024:</b> %{customdata[3]:.2f}%<extra></extra>"
+            )
     ))
+    fig.add_annotation(
+    text="Fuente: Elaboración propia con datos de INEGI",
+    xref="paper", yref="paper",
+    x=0, y=-0.07,  # esquina inferior izquierda del área del gráfico
+    xanchor="left",
+    yanchor="top",
+    showarrow=False,
+    font=dict(
+        family=FONT_FAMILY,
+        size=SIZE_TEXT - 1,
+        color=COLOR_FONT
+    ),
+    align="left",
+    bgcolor="rgba(255,255,255,0.8)"  # fondo semitransparente opcional
+)
 
     annotations = []
     for i, row in df.iterrows():
@@ -72,7 +102,7 @@ def graph2_1(df):
         ),
         ),
         height=500,
-        margin=dict(t=10, l=10, r=10, b=10),
+        margin=dict(t=10, l=10, r=10, b=40),
         showlegend=False,
         template = "plotly_white",
         annotations=annotations,
@@ -84,6 +114,5 @@ def graph2_1(df):
                 bgcolor = "white"
         )
         )
-
-
+    
     return fig

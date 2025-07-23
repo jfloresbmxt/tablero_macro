@@ -21,9 +21,9 @@ def graph2(df):
         customdata=df[["sector","2024_", "participacion", "tmac"]],
         hovertemplate = (
             "<b>%{customdata[0]}</b> <br>" +
-            "<b>PIB:</b> %{customdata[1]:,.0f}<br>" +
+            "<b>PIB:</b> %{customdata[1]:,.0f} mmdp<br>" +
             "<b>Participación:</b> %{customdata[2]:.2f}%<br>" +
-            "<b>TMAC 2018-2024:</b> %{customdata[3]:.2f}<extra></extra>"
+            "<b>TMAC 2018-2024:</b> %{customdata[3]:.2f}%<extra></extra>"
             )
     ))
 

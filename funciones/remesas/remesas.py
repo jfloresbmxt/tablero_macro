@@ -162,8 +162,6 @@ def remesas_map(df):
     url = "https://raw.githubusercontent.com/angelnmara/geojson/master/mexicoHigh.json"
     geojson = requests.get(url).json()
 
-    # Suponiendo que ya tienes el DataFrame `df` con columnas 'Entidad' y 'Remesas'
-    # df = pd.DataFrame(...)
 
     # Crear quintiles, etiquetas y colores
     df["quintil"] = pd.qcut(df["Remesas"], 5)

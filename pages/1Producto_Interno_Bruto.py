@@ -23,12 +23,18 @@ def pib_page():
 
     st.plotly_chart(graph1(df), use_container_width=True)
 
+    title("PIB por sector económico")
+
     tab1, tab2 = st.tabs(["Barras", "Burbujas"])
 
     with tab1:
+        title_graph("Participacion del PIB por sector económico", 
+                "(Millones de pesos)")
         st.plotly_chart(graph2(df1), use_container_width=True)
 
     with tab2:
+        title_graph("Participacion del PIB y TMAC por sector economico", 
+                "(Millones de pesos | %)")
         st.plotly_chart(graph2_1(df1), use_container_width=True)
 
     st.divider()
