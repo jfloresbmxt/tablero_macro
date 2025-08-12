@@ -3,6 +3,7 @@ from assets.components.header import header, subheader, title
 from assets.components.title_graphs import title_graph
 from funciones.data_loader import load_trade_data
 from funciones.comercio.balanza import balanza
+from funciones.comercio.sector import sector_barras, sector_serie
 
 
 
@@ -12,7 +13,7 @@ st.set_page_config(
 )
 
 def trade_page():
-    df = load_trade_data()
+    df, df1, sectores, df2 = load_trade_data()
 
     header("Comercio")
     subheader("Análisis del Comercio")
@@ -31,7 +32,26 @@ def trade_page():
     
     title_graph(f"Evolucion de la balanza comercial bienes {var}", 
             "(millones de dolares)")
+    
     st.plotly_chart(balanza(df,choose[var]))
+
+    st.divider()
+
+    title("Exportaciones por sector económico")
+
+    tab1, tab2 = st.tabs(["Barras", "Serie"])
+
+    with tab1:
+        title_graph("Exportaciones por sector económico", 
+            "(millones de dolares)")
+        st.plotly_chart(sector_barras(df1), use_container_width=True)
+    with tab2:
+        option = st.selectbox(
+            "Selecciona un sector",
+            sectores
+        )
+        title_graph("Entidades con mayores cambios en el número de asegurados en lo que va del año")
+        st.plotly_chart(sector_serie(df2, option), use_container_width=True)
 
 
 

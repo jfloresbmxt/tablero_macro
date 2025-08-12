@@ -1,5 +1,6 @@
 import pandas as pd
 import streamlit as st
+import json
 
 @st.cache_data
 def load_pib_data():
@@ -29,6 +30,10 @@ def load_remesas_data():
 
 @st.cache_data
 def load_trade_data():
-    df = pd.read_excel("data/balanza/balanza_comercial.xlsx")
+    df1 = pd.read_excel("data/balanza/balanza_comercial.xlsx")
+    df2 = pd.read_excel("data/balanza/sector1.xlsx")
+    df3 = pd.read_excel("data/balanza/sector2.xlsx")
+    with open("data/balanza/sectores.json", "r", encoding="utf-8") as f:
+        sectores = json.load(f)
 
-    return df
+    return [df1, df2, sectores, df3]
