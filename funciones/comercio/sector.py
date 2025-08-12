@@ -210,6 +210,7 @@ def sector_serie(df,s):
             tickfont=dict(color=COLOR_FONT),
             overlaying="y",
             side="right",
+            ticksuffix="%",
             showgrid=False
         ),
         margin=dict(t=10, l=10, r=10, b=10),

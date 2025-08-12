@@ -46,11 +46,12 @@ def trade_page():
             "(millones de dolares)")
         st.plotly_chart(sector_barras(df1), use_container_width=True)
     with tab2:
+        title_graph("Evolución de las exportaciones por sector",
+                    "(millones de dolares)")
         option = st.selectbox(
             "Selecciona un sector",
             sectores
         )
-        title_graph("Entidades con mayores cambios en el número de asegurados en lo que va del año")
         st.plotly_chart(sector_serie(df2, option), use_container_width=True)
 
 
