@@ -25,3 +25,10 @@ def load_remesas_data():
     df1 = pd.read_excel("data/remesas_graph2_3.xlsx")
 
     return [df, df1]
+
+
+@st.cache_data
+def load_trade_data():
+    df = pd.read_excel("data/balanza/balanza_comercial.xlsx")
+
+    return df
