@@ -83,7 +83,6 @@ def sector_serie(df,s):
     FONT_FAMILY = "Noto Sans"
 
     df = filtrar_sector(df, s)
-    
 
     # Últimos valores
     last_date = df['date'].iloc[-1]

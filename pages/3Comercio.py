@@ -53,7 +53,8 @@ def trade_page():
             sectores
         )
         st.plotly_chart(sector_serie(df2, option), use_container_width=True)
-
+    
+    title("Exportaciones por entidad")
 
 
 if __name__ == "__main__":
