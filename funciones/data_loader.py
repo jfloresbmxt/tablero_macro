@@ -37,3 +37,18 @@ def load_trade_data():
         sectores = json.load(f)
 
     return [df1, df2, sectores, df3]
+
+
+@st.cache_data
+def load_trade_states_data():
+    df1 = pd.read_excel("data/balanza/mapa.xlsx")
+    df2 = pd.read_excel("data/balanza/entidades.xlsx")
+    df3 = pd.read_excel("data/balanza/entidades_comp.xlsx")
+
+    with open("data/balanza/mx_geojson.json", "r", encoding="utf-8") as f:
+        geoentidades = json.load(f)
+    
+    entidades = df3["entidad"].unique().tolist()
+    entidades.remove("Nacional")
+
+    return [df1, df2, geoentidades, df3, entidades]

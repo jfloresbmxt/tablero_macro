@@ -1,9 +1,10 @@
 import streamlit as st
 from assets.components.header import header, subheader, title
 from assets.components.title_graphs import title_graph
-from funciones.data_loader import load_trade_data
+from funciones.data_loader import load_trade_data, load_trade_states_data
 from funciones.comercio.balanza import balanza
 from funciones.comercio.sector import sector_barras, sector_serie
+from funciones.comercio.entidades import mapa, bar_ent, composicion
 
 
 
@@ -14,6 +15,7 @@ st.set_page_config(
 
 def trade_page():
     df, df1, sectores, df2 = load_trade_data()
+    df3 , df4, geoentidades, df5, entidades = load_trade_states_data()
 
     header("Comercio")
     subheader("Análisis del Comercio")
@@ -55,6 +57,26 @@ def trade_page():
         st.plotly_chart(sector_serie(df2, option), use_container_width=True)
     
     title("Exportaciones por entidad")
+    tab1, tab2, tab3 = st.tabs(["Mapa", "Barras", "Composicion"])
+    
+    with tab1:
+        title_graph("Exportaciones por entidad, 2024", 
+            "(Millones de UDS)")
+        st.plotly_chart(mapa(df3, geoentidades), use_container_width=True)
+    with tab2:
+        title_graph("Exportaciones por entidad, 1er trimestre 2025", 
+            "(Millones de UDS)")
+        st.plotly_chart(bar_ent(df4), use_container_width=True)
+    with tab3:
+        ent = st.selectbox(
+            "Selecciona una entidad",
+            entidades
+        )
+        title_graph("Composición sectorial exportaciones", 
+            "(Millones de UDS)")
+        st.plotly_chart(composicion(df5, ent), use_container_width=True)
+        # st.data_editor(composicion(df5, ent))
+
 
 
 if __name__ == "__main__":
