@@ -59,6 +59,23 @@ def graph2_1(df):
             opacity=0.8
         ))
 
+    fig.add_annotation(
+    text="Fuente: Elaboración propia con datos de INEGI",
+    xref="paper", yref="paper",
+    x=0, y=-0.07,  # esquina inferior izquierda del área del gráfico
+    xanchor="left",
+    yanchor="top",
+    showarrow=False,
+    font=dict(
+        family=FONT_FAMILY,
+        size=SIZE_TEXT - 1,
+        color=COLOR_FONT
+    ),
+    align="left",
+    bgcolor="rgba(255,255,255,0.8)"  # fondo semitransparente opcional
+)
+
+
     fig.update_layout(
         font = dict(
             family = FONT_FAMILY,
@@ -71,23 +88,24 @@ def graph2_1(df):
                 font = dict(
                     family = FONT_FAMILY,
                     size = SIZE_TEXT,
-                    color = "black"
+                    color = COLOR_FONT
                     )
                 ),
+            tickfont=dict(
+                family=FONT_FAMILY, 
+                size=SIZE_TEXT, 
+                color=COLOR_FONT),
             tickformat = ","
         ),
-        yaxis = dict(
-            title = dict(
-            text = "TMAC (%)",
-            font = dict(
-                family = FONT_FAMILY,
-                size = SIZE_TEXT,
-                color = "black"
-            )
-        ),
+         yaxis=dict(
+            title=dict(
+                text="TMAC (%)",
+                font=dict(family=FONT_FAMILY, size=SIZE_TEXT, color=COLOR_FONT)
+            ),
+            tickfont=dict(family=FONT_FAMILY, size=SIZE_TEXT, color=COLOR_FONT)
         ),
         height=500,
-        margin=dict(t=10, l=10, r=10, b=40),
+        margin=dict(t=10, l=10, r=10, b=10),
         showlegend=False,
         template = "plotly_white",
         annotations=annotations,
@@ -97,7 +115,6 @@ def graph2_1(df):
                 font_color=COLOR_FONT,
                 bordercolor="gray",
                 bgcolor = "white"
-        )
-        )
-    
+        ))
+
     return fig

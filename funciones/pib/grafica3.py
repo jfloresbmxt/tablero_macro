@@ -1,7 +1,7 @@
 import plotly.graph_objects as go
 
 def graph3(df):
-    COLOR_BAR = "rgb(190, 199, 206)"
+    COLOR_BAR = "rgb(229, 233, 235)"
     COLOR_FONT= "#000000"
     SIZE_TEXT = 10
     FONT_FAMILY = "Noto Sans"
@@ -142,8 +142,8 @@ def graph3_1(df):
                     family = FONT_FAMILY,
                     size = SIZE_TEXT,
                     color = "black"
-                    )
-                ),
+                )),
+            tickfont=dict(family=FONT_FAMILY, size=SIZE_TEXT, color=COLOR_FONT),
             tickformat = ","
         ),
         yaxis = dict(
@@ -153,8 +153,8 @@ def graph3_1(df):
                 family = FONT_FAMILY,
                 size = SIZE_TEXT,
                 color = "black"
-            )
-        ),
+            )),
+            tickfont=dict(family=FONT_FAMILY, size=SIZE_TEXT, color=COLOR_FONT)
         ),
         height=500,
         margin=dict(t=10, l=10, r=10, b=10),

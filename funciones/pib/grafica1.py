@@ -9,6 +9,7 @@ def graph1(df) -> go.Figure:
         go.Figure: Gráfico interactivo con doble eje Y.
     """
     COLOR_BAR = "rgb(190, 199, 206)"
+
     COLOR_FONT= "#000000"
     SIZE_TEXT = 10
     FONT_FAMILY = "Noto Sans"
@@ -24,13 +25,13 @@ def graph1(df) -> go.Figure:
             name = "PIB",
             marker_color = COLOR_BAR,
             yaxis="y1",
-            customdata=df["PIB_"],
-            hovertemplate=(
-                "<b>PIB:</b> %{customdata:,.0f} mmdp<extra></extra>"
+            customdata=df[["year","PIB_", "variacion"]],
+            hovertemplate = (
+            "<b>%{customdata[0]}</b> <br>" +
+            "<b>PIB:</b> %{customdata[1]:,.0f} mmdp<br>" +
+            "<b>Variación:</b> %{customdata[2]:.2f}%<extra></extra>"
             )
-
-        )
-    )
+    ))
 
     # Línea con texto del porcentaje
     fig.add_trace(
@@ -43,10 +44,23 @@ def graph1(df) -> go.Figure:
             text=df["variacion"].apply(lambda x: f"{x:.2f}%"),
             textposition="top center",
             customdata=df["variacion"],
-             hovertemplate=(
-                "<b>Variación:</b> %{customdata:.2f}%<extra></extra>"
-            )
     ))
+
+    fig.add_annotation(
+            text="*Para 2025 se tomó en cuenta solo el primer trimeste que es la información disponible",
+            xref="paper", yref="paper",
+            x=0, y=-0.07,  # esquina inferior izquierda del área del gráfico
+            xanchor="left",
+            yanchor="top",
+            showarrow=False,
+            font=dict(
+                family=FONT_FAMILY,
+                size=SIZE_TEXT,
+                color=COLOR_FONT
+            ),
+            align="left",
+            bgcolor="rgba(255,255,255,0.8)"  # fondo semitransparente opcional
+        )
 
     fig.update_layout(
         showlegend = False,
@@ -57,6 +71,7 @@ def graph1(df) -> go.Figure:
         ),
         xaxis = dict(
             hoverformat="%Y",
+            tickformat="%Y",
             tickfont = dict(
                 family = FONT_FAMILY,
                 size = SIZE_TEXT,
@@ -81,27 +96,22 @@ def graph1(df) -> go.Figure:
             )
         ),
         yaxis = dict(
-            tickfont = dict(
-                color=COLOR_FONT,
-                size = SIZE_TEXT
-                )
+            tickfont = dict(color=COLOR_FONT,
+                            size = SIZE_TEXT),
     ),
         yaxis2=dict(
-            tickfont = dict(
-                color=COLOR_FONT,
-                size = SIZE_TEXT
-                ),
+            tickfont=dict(color=COLOR_FONT),
             overlaying="y",
             side="right"
         ),
         margin=dict(t=10, l=10, r=10, b=10),
         template="plotly_white",
-        hovermode="x unified",
         hoverlabel=dict(
             font_size=SIZE_TEXT,
             font_family=FONT_FAMILY,
             font_color=COLOR_FONT,
             bordercolor="gray"
-    ))
+        )
+    )
 
     return fig

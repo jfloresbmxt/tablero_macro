@@ -1,7 +1,8 @@
 import plotly.graph_objects as go
 
 def graph2(df):
-    COLOR_BAR = "rgb(190, 199, 206)"
+    # COLOR_BAR = "rgb(190, 199, 206)"
+    COLOR_BAR = "rgb(229, 233, 235)"
     COLOR_FONT= "#000000"
     SIZE_TEXT = 10
     FONT_FAMILY = "Noto Sans"

@@ -18,8 +18,8 @@ def pib_page():
     header("Producto Interno Bruto")
     subheader("Análisis del Producto Interno Bruto (PIB): composición por sectores y entidades federativas")
 
-    title_graph("Evolucion del PIB y su variación anual", 
-                "(Millones de pesos | %)")
+    title_graph("Evolucion del PIB y su variación anual*", 
+                "(Miles de millones de pesos | %)")
 
     st.plotly_chart(graph1(df), use_container_width=True)
 
@@ -28,13 +28,13 @@ def pib_page():
     tab1, tab2 = st.tabs(["Barras", "Burbujas"])
 
     with tab1:
-        title_graph("Participacion del PIB por sector económico", 
-                "(Millones de pesos)")
+        title_graph("Participacion del PIB por sector económico, 2024", 
+                "(Miles de millones de pesos)")
         st.plotly_chart(graph2(df1), use_container_width=True)
 
     with tab2:
-        title_graph("Participacion del PIB y TMAC por sector economico", 
-                "(Millones de pesos | %)")
+        title_graph("Participacion del PIB y TMAC por sector económico, 2024", 
+                "(Miles de millones de pesos | %)")
         st.plotly_chart(graph2_1(df1), use_container_width=True)
 
     st.divider()
@@ -44,13 +44,13 @@ def pib_page():
     tab1, tab2 = st.tabs(["Barras", "Burbujas"])
 
     with tab1:
-        title_graph("Participacion del PIB por entidad federativa", 
-                "(Millones de pesos)")
+        title_graph("Participación del PIB por entidad federativa, 2023", 
+                "(Miles de millones de pesos)")
         st.plotly_chart(graph3(df2), use_container_width=True)
 
     with tab2:
-        title_graph("Participacion del PIB y TMAC por entidad federativa", 
-                "(Millones de pesos | %)")
+        title_graph("Participación del PIB y TMAC por entidad federativa, 2023", 
+                "(Miles de millones de pesos | %)")
         st.plotly_chart(graph3_1(df2), use_container_width=True)
 
 if __name__ == "__main__":
