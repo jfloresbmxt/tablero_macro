@@ -28,7 +28,7 @@ def graph1(df) -> go.Figure:
             customdata=df[["year","PIB_", "variacion"]],
             hovertemplate = (
             "<b>%{customdata[0]}</b> <br>" +
-            "<b>PIB:</b> %{customdata[1]:,.0f} mmdp<br>" +
+            "<b>PIB:</b> %{customdata[1]:,.0f}<br>" +
             "<b>Variación:</b> %{customdata[2]:.2f}%<extra></extra>"
             )
     ))
@@ -98,6 +98,7 @@ def graph1(df) -> go.Figure:
         yaxis = dict(
             tickfont = dict(color=COLOR_FONT,
                             size = SIZE_TEXT),
+            showexponent="none"
     ),
         yaxis2=dict(
             tickfont=dict(color=COLOR_FONT),

@@ -18,14 +18,14 @@ def consumo_page():
     header("Consumo")
     subheader("Análisis del Consumo")
     
-    title_graph("Evolucion del Consumo privado y su variación anual", 
+    title_graph("Evolución del Consumo Privado y su variación anual", 
             "(2018 = 100 | %)")
     st.plotly_chart(graph_consumo(df), use_container_width=True)
 
     st.divider()
 
     title_graph("Asegurados totales del IMSS", 
-            "(número de asegurados | %)")
+            "(millones de asegurados | %)")
     st.plotly_chart(graph1(df1), use_container_width=True)
 
     st.divider()
@@ -33,8 +33,8 @@ def consumo_page():
     tab1, tab2 = st.tabs(["Barras", "Tops"])
     
     with tab1:
-        title_graph("Asegurados totales del IMSS por entidad", 
-            "(número de asegurados)")
+        title_graph("Asegurados totales del IMSS por entidad federativa, mayo 2025", 
+            "(millones de asegurados)")
         st.plotly_chart(graph2(df2), use_container_width=True)
     with tab2:
         title_graph("Entidades con mayores cambios en el número de asegurados en lo que va del año")
@@ -43,18 +43,18 @@ def consumo_page():
     st.divider()
 
     title_graph("Evolución de las remesas", 
-            "(Millones de UDS | %)")
+            "(Millones de dólares | %)")
     
     st.plotly_chart(remesas_line(df4), use_container_width=True)
     tab1, tab2 = st.tabs(["Mapa", "Barras"])
     
     with tab1:
         title_graph("Remesas recibidas por entidad federativa", 
-            "(Millones de UDS)")
+            "(Millones de dólares)")
         st.plotly_chart(remesas_map(df5), use_container_width=True)
     with tab2:
         title_graph("Remesas recibidas por entidad federativa", 
-            "(Millones de UDS)")
+            "(Millones de dólares)")
         st.plotly_chart(remesas_bar(df5), use_container_width=True)
 
 if __name__ == "__main__":

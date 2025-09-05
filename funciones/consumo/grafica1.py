@@ -19,7 +19,7 @@ def graph_consumo(df):
     fig.add_trace(go.Scatter(
         x = df['date'],
         y = df['TOTAL'],
-        name = 'Indice de consumo',
+        name = 'Índice de consumo',
         yaxis = 'y1',
         line = dict(color=COLOR_LINE_1),
         text = df["TOTAL"].apply(lambda x: f"{x:.2f}"),
@@ -109,11 +109,13 @@ def graph_consumo(df):
             )
         ),
         yaxis = dict(
-            tickfont = dict(color=COLOR_FONT),
+            tickfont = dict(color=COLOR_FONT,
+                            size = SIZE_TEXT),
             showgrid = False
         ),
         yaxis2 = dict(
-            tickfont = dict(color=COLOR_FONT),
+            tickfont = dict(color=COLOR_FONT,
+                            size = SIZE_TEXT),
             overlaying = "y",
             side = "right",
             showgrid = False

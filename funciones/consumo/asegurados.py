@@ -29,7 +29,7 @@ def graph1(df):
         text=df["ta"].apply(lambda x: f"{x:,.0f}"),
         customdata = df[["ta"]],
         hovertemplate = (
-                "<b>Asegurados:</b> %{customdata[0]:,.2f}M<extra></extra>"
+                "<b>Asegurados:</b> %{customdata[0]:,.2f}<extra></extra>"
                 )
     ))
 
@@ -127,11 +127,14 @@ def graph1(df):
             )
         ),
         yaxis = dict(
-            tickfont = dict(color=COLOR_FONT),
+            tickfont = dict(color=COLOR_FONT,
+                            size = SIZE_TEXT
+                            ),
             showgrid=False
             ),
         yaxis2=dict(
-            tickfont=dict(color=COLOR_FONT),
+            tickfont = dict(color=COLOR_FONT,
+                            size = SIZE_TEXT),
             overlaying="y",
             side="right",
             showgrid=False
@@ -151,7 +154,7 @@ def graph1(df):
 
 
 def graph2(df):
-    COLOR_BAR = "rgb(124, 143, 156)"
+    COLOR_BAR = "rgb(229, 233, 235)"
     COLOR_FONT= "#000000"
     SIZE_TEXT = 10
     FONT_FAMILY = "Noto Sans"
@@ -197,7 +200,9 @@ def graph2(df):
             showgrid = False,
         ),
         yaxis = dict(
-            tickfont = dict(color=COLOR_FONT),
+            tickfont = dict(color=COLOR_FONT,
+                            size = SIZE_TEXT
+                            ),
             showgrid = False,
             fixedrange = False,
             automargin = True,
@@ -221,7 +226,7 @@ def graph2(df):
 
 
 def graph3(df):
-    COLOR_LINE_2 = "rgb(124, 143, 156)"
+    COLOR_LINE_2 = "rgb(229, 233, 235)"
     # COLOR_LINE_2 = "rgb(114, 47, 55)"
     COLOR_LINE_1 = "rgb(71, 85, 94)"
     COLOR_FONT= "#000000"
@@ -270,7 +275,9 @@ def graph3(df):
             showgrid = False
         ),
         yaxis = dict(
-            tickfont = dict(color=COLOR_FONT),
+            tickfont = dict(color=COLOR_FONT,
+                            size = SIZE_TEXT
+                            ),
             showgrid = False,
             fixedrange=False,
             automargin=True,

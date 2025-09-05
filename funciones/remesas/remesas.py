@@ -28,7 +28,7 @@ def remesas_line(df):
         text=df["remesas"].apply(lambda x: f"{x:.2f}"),
         customdata = df[["remesas"]],
         hovertemplate = (
-                "<b>Remesas:</b> %{customdata[0]:,.0f} mdd<extra></extra>"
+                "<b>Remesas:</b> %{customdata[0]:,.0f}<extra></extra>"
                 )
     ))
 
@@ -126,12 +126,14 @@ def remesas_line(df):
             )
         ),
         yaxis = dict(
-            tickfont = dict(color=COLOR_FONT),
+            tickfont = dict(color=COLOR_FONT,
+                            size = SIZE_TEXT),
             tickformat=",",
             showgrid=False
             ),
         yaxis2=dict(
-            tickfont=dict(color=COLOR_FONT),
+            tickfont = dict(color=COLOR_FONT,
+                            size = SIZE_TEXT),
             overlaying="y",
             side="right",
             showgrid=False
@@ -159,8 +161,6 @@ def remesas_line(df):
 
 
 def remesas_map(df):
-    COLOR_LINE_2 = "rgb(124, 143, 156)"
-    COLOR_LINE_1 = "rgb(71, 85, 94)"
     COLOR_FONT= "#000000"
     SIZE_TEXT = 10
     FONT_FAMILY = "Noto Sans"
@@ -197,7 +197,7 @@ def remesas_map(df):
 
         over_text = (
         f"<b>{estado}</b><br>"
-        f"Remesas: {remesa:,.2f} mdd<br>"
+        f"Remesas: {remesa:,.2f}<br>"
         f"Participación: {participacion:.2f}%<extra></extra>"
     )
 
@@ -253,13 +253,20 @@ def remesas_map(df):
             font_family=FONT_FAMILY,
             font_color=COLOR_FONT,
             bordercolor="gray"),
-        legend_title_text="Remesas (millones USD)",
         legend=dict(
+            title=dict(
+            text = "Remesas (millones de dolares)",      # <— texto del título de la leyenda
+            font = dict(
+                family="Noto Sans",
+                size=SIZE_TEXT + 2,
+                color=COLOR_FONT      # <— color del título
+            )),
             y=0.6,
             x=0.66,
             bordercolor="black",
             borderwidth=.1,
-            font=dict(size=12)
+            font=dict(size=SIZE_TEXT,
+                      color = COLOR_FONT)
         ),
         font = dict(family = FONT_FAMILY, 
                   color = COLOR_FONT,
@@ -272,7 +279,7 @@ def remesas_map(df):
 
 
 def remesas_bar(df):
-    COLOR_BAR = "rgb(124, 143, 156)"
+    COLOR_BAR = "rgb(229, 233, 235)"
     COLOR_FONT= "#000000"
     SIZE_TEXT = 10
     FONT_FAMILY = "Noto Sans"
@@ -297,7 +304,7 @@ def remesas_bar(df):
             customdata = df[["Entidad", "Remesas", "participacion", "tmac"]],
             hovertemplate = (
                 "<b>%{customdata[0]}</b> <br>" +
-                "<b>Remesas:</b> %{customdata[1]:,.0f} mdd<br>" +
+                "<b>Remesas:</b> %{customdata[1]:,.0f}<br>" +
                 "<b>Participación:</b> %{customdata[2]:.2f}%<br>" +
                 "<b>TMAC 2018-2025:</b> %{customdata[3]:.2f}%<extra></extra>"
                 )
@@ -320,7 +327,8 @@ def remesas_bar(df):
             showgrid = False,
         ),
         yaxis = dict(
-            tickfont = dict(color=COLOR_FONT),
+            tickfont = dict(color = COLOR_FONT,
+                            size = SIZE_TEXT),
             showgrid = False,
             fixedrange = False,
             automargin = True,
