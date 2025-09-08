@@ -305,6 +305,7 @@ def sector_barras_v2(df, s):
             dtick = "M3",
             hoverformat = "%Y-%m",
             tickformat = "%Y-Q%q",
+            tickangle=-90,
             title_text="Año-Trimestre",
             tickfont = dict(
                 family = FONT_FAMILY,

@@ -44,11 +44,11 @@ def trade_page():
     tab1, tab2 = st.tabs(["Barras", "Evolución Barras"])
 
     with tab1:
-        title_graph("Exportaciones por sector económico, 2024", 
+        title_graph("Exportaciones por sector económico, 1er trimestre 2025", 
             "(Millones de dolares)")
         st.plotly_chart(sector_barras(df1), use_container_width=True)
     with tab2:
-        title_graph("Evolución de las exportaciones por sector anual",
+        title_graph("Evolución de las exportaciones por sector económico trimestrales",
                     "(Millones de dolares | %)")
         option = st.selectbox(
             "Selecciona un sector",
@@ -75,7 +75,6 @@ def trade_page():
         title_graph("Composición sectorial exportaciones, 1er trimestre 2025", 
             "(Millones de dólares)")
         st.plotly_chart(composicion(df5, ent), use_container_width=True)
-        # st.data_editor(composicion(df5, ent))
 
 
 
