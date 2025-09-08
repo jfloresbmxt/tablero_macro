@@ -1,5 +1,6 @@
 import plotly.graph_objects as go
 import numpy as np
+import pandas as pd
 
 def sector_barras(df):
     COLOR_BAR = "rgb(229, 233, 235)"
@@ -11,24 +12,24 @@ def sector_barras(df):
 
     fig.add_trace(
         go.Bar(
-            x = df["2024"],
-            y = df["Descripción"],
+            x = df["2025/01"],
+            y = df["sector"],
             orientation = "h",
             marker_color = COLOR_BAR,
-            text = df["2024"].apply(lambda x: f"{x:,.0f}"),
+            text = df["2025/01"].apply(lambda x: f"{x:,.0f}"),
             textposition = "inside",
             textfont = dict(
                 color = COLOR_FONT,
                 size = SIZE_TEXT
             ),
             insidetextanchor = "start",
-            customdata = df[["Descripción", "2024", "participacion", "tmac", "crec_anual"]],
+            customdata = df[["sector", "2025/01", "participacion", "tmac", "crec_anual"]],
             hovertemplate = (
                 "<b>%{customdata[0]}</b> <br>" +
                 "<b>Exportaciones:</b> %{customdata[1]:,.0f}<br>" +
                 "<b>Participación:</b> %{customdata[2]:.2f}%<br>" +
                 "<b>Crecimiento anual:</b> %{customdata[3]:.2f}%<br>" +
-                "<b>TMAC 2018-2024:</b> %{customdata[4]:.2f}%<extra></extra>"
+                "<b>TMAC 2018-2023:</b> %{customdata[4]:.2f}%<extra></extra>"
                 )
         )
     )
@@ -235,5 +236,113 @@ def sector_serie(df,s):
             xanchor = "center",
             x = 0.5
     ))
+
+    return fig
+
+
+def sector_barras_v2(df, s):
+    COLOR_BAR = "rgb(190, 199, 206)"
+    COLOR_FONT= "#000000"
+    SIZE_TEXT = 10
+    FONT_FAMILY = "Noto Sans"
+
+    df = filtrar_sector(df, s).copy()
+
+    df["top"] = df[s]*1.01
+    df["year"] = df["date"].astype(str).str[:4].astype(int)
+    df["quarter"] = df["date"].astype(str).str[-2:].astype(int)
+
+    # Mapear trimestre a primer mes (Q1=1, Q2=4, Q3=7, Q4=10)
+    quarter_to_month = {1: 1, 2: 4, 3: 7, 4: 10}
+    df["month"] = df["quarter"].map(quarter_to_month)
+
+    # Crear una fecha real usando año + primer mes del trimestre
+    df["date_dt"] = pd.to_datetime(dict(year=df["year"], month=df["month"], day=1))
+
+    # Para hover: etiqueta bonita como 2025-Q1
+    df["quarter_label"] = df["year"].astype(str) + "-Q" + df["quarter"].astype(str)
+
+
+    fig = go.Figure()
+
+    fig.add_trace(
+        go.Bar(
+            x = df["date_dt"],
+            y = df[s],
+            name = s,
+            marker_color = COLOR_BAR,
+            yaxis="y1",
+            customdata=df[["date",s, "cambio_pct"]],
+            hovertemplate = (
+            "<b>%{customdata[0]}</b> <br>" +
+            "<b>Exportaciones:</b> %{customdata[1]:,.0f}<br>" +
+            "<b>Variación:</b> %{customdata[2]:.2f}%<extra></extra>"
+            )
+    ))
+
+    # Línea con texto del porcentaje
+    fig.add_trace(
+        go.Scatter(
+            x=df["date_dt"],
+            y=df["top"],
+            name="Variación (%)",
+            mode="text",
+            yaxis="y1",
+            text=df["cambio_pct"].apply(lambda x: f"{x:.2f}%"),
+            textposition="top center",
+            customdata=df["cambio_pct"],
+    ))
+
+    fig.update_layout(
+        showlegend = False,
+        font = dict(
+            family = FONT_FAMILY,
+            size = SIZE_TEXT,
+            color = "black"
+        ),
+        xaxis = dict(
+            type = "date",
+            dtick = "M3",
+            hoverformat = "%Y-%m",
+            tickformat = "%Y-Q%q",
+            title_text="Año-Trimestre",
+            tickfont = dict(
+                family = FONT_FAMILY,
+                size = SIZE_TEXT,
+                color = COLOR_FONT
+            ),
+            title_font = dict(
+                family = FONT_FAMILY,
+                size = SIZE_TEXT,
+                color = COLOR_FONT
+            ),
+            range=["2020-12-01", "2025-03"],
+            rangeslider = dict(visible=False),
+            rangeselector = dict(
+                buttons = list([
+                    dict(count = 5, label = "5 años", step = "year", stepmode = "backward"),
+                    dict(count = 10, label = "10 años", step = "year", stepmode = "todate"),
+                    dict(count = 15, label = "15 años", step = "year", stepmode = "todate"),
+                    dict(count = 20, label = "20 años", step = "year", stepmode = "todate"),
+                ])
+            )
+        ),
+        yaxis = dict(
+            tickfont = dict(color=COLOR_FONT, size = SIZE_TEXT),
+    ),
+        yaxis2=dict(
+            tickfont=dict(color=COLOR_FONT),
+            overlaying="y",
+            side="right"
+        ),
+        margin=dict(t=10, l=10, r=10, b=10),
+        template="plotly_white",
+        hoverlabel=dict(
+            font_size=SIZE_TEXT,
+            font_family=FONT_FAMILY,
+            font_color=COLOR_FONT,
+            bordercolor="gray"
+    )
+    )
 
     return fig
