@@ -2,7 +2,7 @@ import plotly.graph_objects as go
 import numpy as np
 
 def sector_barras(df):
-    COLOR_BAR = "rgb(124, 143, 156)"
+    COLOR_BAR = "rgb(229, 233, 235)"
     COLOR_FONT= "#000000"
     SIZE_TEXT = 10
     FONT_FAMILY = "Noto Sans"
@@ -49,7 +49,8 @@ def sector_barras(df):
             showgrid = False,
         ),
         yaxis = dict(
-            tickfont = dict(color=COLOR_FONT),
+            tickfont = dict(color=COLOR_FONT,
+                            size = SIZE_TEXT),
             showgrid = False,
             fixedrange = False,
             automargin = True,
@@ -61,7 +62,13 @@ def sector_barras(df):
         font = dict(family = FONT_FAMILY, 
                   color = COLOR_FONT,
                   size = SIZE_TEXT
-                  )
+                  ),
+                  hoverlabel=dict(
+            font_size=SIZE_TEXT,
+            font_family=FONT_FAMILY,
+            font_color=COLOR_FONT,
+            bordercolor="gray"
+    )
     )
 
     return fig

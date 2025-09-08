@@ -32,8 +32,8 @@ def trade_page():
     "Capital": ["Exportacion bienes capital", "Importacion bienes capital"],
     }
     
-    title_graph(f"Evolucion de la balanza comercial bienes {var}", 
-            "(millones de dolares)")
+    title_graph(f"Evolución de la balanza comercial - bienes de {var}", 
+            "(Miles de millones de dólares)")
     
     st.plotly_chart(balanza(df,choose[var]))
 
@@ -45,11 +45,11 @@ def trade_page():
 
     with tab1:
         title_graph("Exportaciones por sector económico", 
-            "(millones de dolares)")
+            "(Millones de dolares)")
         st.plotly_chart(sector_barras(df1), use_container_width=True)
     with tab2:
         title_graph("Evolución de las exportaciones por sector",
-                    "(millones de dolares)")
+                    "(Millones de dolares)")
         option = st.selectbox(
             "Selecciona un sector",
             sectores
@@ -61,11 +61,11 @@ def trade_page():
     
     with tab1:
         title_graph("Exportaciones por entidad, 2024", 
-            "(Millones de UDS)")
+            "(Millones de dólares)")
         st.plotly_chart(mapa(df3, geoentidades), use_container_width=True)
     with tab2:
         title_graph("Exportaciones por entidad, 1er trimestre 2025", 
-            "(Millones de UDS)")
+            "(Millones de dólares)")
         st.plotly_chart(bar_ent(df4), use_container_width=True)
     with tab3:
         ent = st.selectbox(
@@ -73,7 +73,7 @@ def trade_page():
             entidades
         )
         title_graph("Composición sectorial exportaciones", 
-            "(Millones de UDS)")
+            "(Millones de dólares)")
         st.plotly_chart(composicion(df5, ent), use_container_width=True)
         # st.data_editor(composicion(df5, ent))
 

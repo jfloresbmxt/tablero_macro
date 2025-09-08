@@ -43,7 +43,7 @@ def mapa(df, geojson):
 
         over_text = (
         f"<b>{estado}</b><br>"
-        f"Exportaciones: {remesa:,.2f} mdd<br>"
+        f"Exportaciones: {remesa:,.2f}<br>"
         f"Participación: {participacion:.2f}%<extra></extra>"
     )
 
@@ -99,21 +99,32 @@ def mapa(df, geojson):
             font_family=FONT_FAMILY,
             font_color=COLOR_FONT,
             bordercolor="gray"),
-        legend_title_text="Exportaciones (millones USD)",
         legend=dict(
-            y=0.8,
-            x=0.7,
+            title=dict(
+            text = "Remesas (millones de dolares)",      # <— texto del título de la leyenda
+            font = dict(
+                family="Noto Sans",
+                size=SIZE_TEXT + 2,
+                color=COLOR_FONT      # <— color del título
+            )),
+            y=0.6,
+            x=0.66,
             bordercolor="black",
             borderwidth=.1,
-            font=dict(size=12)
-        )
+            font=dict(size=SIZE_TEXT,
+                      color = COLOR_FONT)
+        ),
+        font = dict(family = FONT_FAMILY, 
+                  color = COLOR_FONT,
+                  size = SIZE_TEXT
+                  )
     )
 
     return fig
 
 
 def bar_ent(df):
-    COLOR_BAR = "rgb(124, 143, 156)"
+    COLOR_BAR = "rgb(229, 233, 235)"
     COLOR_FONT= "#000000"
     SIZE_TEXT = 10
     FONT_FAMILY = "Noto Sans"
@@ -160,7 +171,8 @@ def bar_ent(df):
             showgrid = False,
         ),
         yaxis = dict(
-            tickfont = dict(color=COLOR_FONT),
+            tickfont = dict(color=COLOR_FONT,
+                            size = SIZE_TEXT),
             showgrid = False,
             fixedrange = False,
             automargin = True,
@@ -172,7 +184,13 @@ def bar_ent(df):
         font = dict(family = FONT_FAMILY, 
                   color = COLOR_FONT,
                   size = SIZE_TEXT
-                  )
+                  ),
+        hoverlabel=dict(
+            font_size=SIZE_TEXT,
+            font_family=FONT_FAMILY,
+            font_color=COLOR_FONT,
+            bordercolor="gray"
+    )
     )
 
     return fig

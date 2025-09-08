@@ -28,7 +28,7 @@ def balanza(df, vars):
             text = df[vars[0]].apply(lambda x: f"{x:,.0f}"),
             customdata = df[[vars[0]]],
             hovertemplate = (
-                "<b>Exportaciones:</b> %{customdata[0]:,.0f} mdd<extra></extra>"
+                "<b>Exportaciones:</b> %{customdata[0]:,.0f}<extra></extra>"
             )))
     
     # Serie 2: importaciones
@@ -44,7 +44,7 @@ def balanza(df, vars):
             text = df[vars[1]].apply(lambda x: f"{x:,.0f}"),
             customdata = df[[vars[1]]],
             hovertemplate = (
-                "<b>Importaciones:</b> %{customdata[0]:,.0f} mdd<extra></extra>"
+                "<b>Importaciones:</b> %{customdata[0]:,.0f}<extra></extra>"
             )))
     
     # Punto final para Exportaciones
@@ -122,8 +122,10 @@ def balanza(df, vars):
                 ]))
         ),
         yaxis = dict(
-            tickfont = dict(color=COLOR_FONT),
+            tickfont = dict(color=COLOR_FONT,
+                            size = SIZE_TEXT),
             showgrid=True,
+            showexponent="none"
             # range=[y_min - padding, y_max + padding]
             ),
         margin=dict(t=10, l=10, r=10, b=10),
