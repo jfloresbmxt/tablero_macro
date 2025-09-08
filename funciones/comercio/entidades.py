@@ -3,8 +3,6 @@ import plotly.graph_objects as go
 import json
 
 def mapa(df, geojson):
-    COLOR_LINE_2 = "rgb(124, 143, 156)"
-    COLOR_LINE_1 = "rgb(71, 85, 94)"
     COLOR_FONT= "#000000"
     SIZE_TEXT = 10
     FONT_FAMILY = "Noto Sans"
@@ -101,7 +99,7 @@ def mapa(df, geojson):
             bordercolor="gray"),
         legend=dict(
             title=dict(
-            text = "Remesas (millones de dolares)",      # <— texto del título de la leyenda
+            text = "Exportaciones (millones de dólares)",      # <— texto del título de la leyenda
             font = dict(
                 family="Noto Sans",
                 size=SIZE_TEXT + 2,
@@ -150,7 +148,7 @@ def bar_ent(df):
                 "<b>Exportaciones:</b> %{customdata[1]:,.0f}<br>" +
                 "<b>Participación:</b> %{customdata[2]:.2f}%<br>" +
                 "<b>Crecimiento anual:</b> %{customdata[3]:.2f}%<br>" +
-                "<b>TMAC 2018-2023:</b> %{customdata[4]:.2f}%<extra></extra>"
+                "<b>TMAC 2018-2025:</b> %{customdata[4]:.2f}%<extra></extra>"
                 )
         )
     )

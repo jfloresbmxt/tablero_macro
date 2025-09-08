@@ -28,7 +28,7 @@ def sector_barras(df):
                 "<b>Exportaciones:</b> %{customdata[1]:,.0f}<br>" +
                 "<b>Participación:</b> %{customdata[2]:.2f}%<br>" +
                 "<b>Crecimiento anual:</b> %{customdata[3]:.2f}%<br>" +
-                "<b>TMAC 2018-2023:</b> %{customdata[4]:.2f}%<extra></extra>"
+                "<b>TMAC 2018-2024:</b> %{customdata[4]:.2f}%<extra></extra>"
                 )
         )
     )

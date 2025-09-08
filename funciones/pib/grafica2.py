@@ -51,7 +51,6 @@ def graph2(df):
         showlegend=False,
         template="plotly_white",
         margin=dict(t=10, l=0, r=0, b=0),
-        # hovermode="x unified",
         hoverlabel=dict(
             font_size=SIZE_TEXT,
             font_family=FONT_FAMILY,
