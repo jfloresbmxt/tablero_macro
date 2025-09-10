@@ -25,9 +25,9 @@ def trade_page():
 
     choose = {
     "Total":["Importaciones", "Exportaciones"],
-    "Consumo": ["Exportación bienes consumo", "Importación bienes consumo"],
-    "Intermedios": ["Exportación bienes intermedios", "Importacion bienes intermedios"],
-    "Capital": ["Exportación bienes capital", "Importación bienes capital"],
+    "Consumo": ["Exportacion bienes consumo", "Importacion bienes consumo"],
+    "Intermedios": ["Exportacion bienes intermedios", "Importacion bienes intermedios"],
+    "Capital": ["Exportacion bienes capital", "Importacion bienes capital"],
     }
     
     title_graph(f"Evolución de la balanza comercial - bienes de {var}", 
