@@ -6,8 +6,6 @@ from funciones.comercio.balanza import balanza
 from funciones.comercio.sector import sector_barras, sector_serie, sector_barras_v2
 from funciones.comercio.entidades import mapa, bar_ent, composicion
 
-
-
 st.set_page_config(
     page_title="Comercio",
     layout="wide"
@@ -27,15 +25,15 @@ def trade_page():
 
     choose = {
     "Total":["Importaciones", "Exportaciones"],
-    "Consumo": ["Exportacion bienes consumo", "Importacion bienes consumo"],
-    "Intermedios": ["Exportacion bienes intermedios", "Importacion bienes intermedios"],
-    "Capital": ["Exportacion bienes capital", "Importacion bienes capital"],
+    "Consumo": ["Exportación bienes consumo", "Importación bienes consumo"],
+    "Intermedios": ["Exportación bienes intermedios", "Importacion bienes intermedios"],
+    "Capital": ["Exportación bienes capital", "Importación bienes capital"],
     }
     
     title_graph(f"Evolución de la balanza comercial - bienes de {var}", 
             "(Miles de millones de dólares)")
     
-    st.plotly_chart(balanza(df,choose[var]))
+    st.plotly_chart(balanza(df,choose[var]), use_container_width=True)
 
     st.divider()
 
@@ -45,11 +43,11 @@ def trade_page():
 
     with tab1:
         title_graph("Exportaciones por sector económico, 1er trimestre 2025", 
-            "(Millones de dolares)")
+            "(Millones de dólares)")
         st.plotly_chart(sector_barras(df1), use_container_width=True)
     with tab2:
         title_graph("Evolución de las exportaciones por sector económico trimestrales",
-                    "(Millones de dolares | %)")
+                    "(Millones de dólares | %)")
         option = st.selectbox(
             "Selecciona un sector",
             sectores

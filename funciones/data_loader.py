@@ -52,3 +52,11 @@ def load_trade_states_data():
     entidades.remove("Nacional")
 
     return [df1, df2, geoentidades, df3, entidades]
+
+
+@st.cache_data
+def load_ied_data():
+    df1 = pd.read_excel("data/ied/ied1.xlsx")
+    df2 = pd.read_excel("data/ied/ied2.xlsx")
+
+    return [df1, df2]

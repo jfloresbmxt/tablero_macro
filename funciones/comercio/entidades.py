@@ -136,7 +136,7 @@ def bar_ent(df):
             orientation = "h",
             marker_color = COLOR_BAR,
             text = df["2025/01"].apply(lambda x: f"{x:,.0f}"),
-            textposition = "inside",
+            # textposition = "inside",
             textfont = dict(
                 color = COLOR_FONT,
                 size = SIZE_TEXT

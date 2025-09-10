@@ -168,7 +168,7 @@ def graph2(df):
             orientation = "h",
             marker_color = COLOR_BAR,
             text = df["2025"].apply(lambda x: f"{x:,.0f}"),
-            textposition = "inside",
+            # textposition = "inside",
             textfont = dict(
                 color = COLOR_FONT, 
                 size=SIZE_TEXT
